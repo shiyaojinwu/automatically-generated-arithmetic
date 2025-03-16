@@ -229,7 +229,7 @@ public class QuestionGenerator {
         if (rand.nextBoolean()) {
             // 生成真分数
             int denominator = rand.nextInt(9) + 2; // 生成 2-10 之间的分母
-            int numerator = rand.nextInt(denominator); // 确保是真分数 (分子 < 分母)
+            int numerator = rand.nextInt(denominator-1)+1; // 确保是真分数 (分子 < 分母)
             return numerator + "/" + denominator;
         } else {
             return String.valueOf(rand.nextInt(range) + 1); // 生成 1-range 之间的整数
