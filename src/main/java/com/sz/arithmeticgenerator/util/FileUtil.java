@@ -22,15 +22,17 @@ public class FileUtil {
      */
     public static void writeToFile(String filename, List<String> content) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
-            // 遍历内容列表
-            for (String line : content) {
-                // 将当前行内容写入文件
-                writer.write(line);
-                // 在写入的内容后添加换行符
+            // 使用索引遍历内容列表
+            for (int i = 0; i < content.size(); i++) {
+                // 构造带序号的行
+                String lineWithNumber = (i + 1) + ". " + content.get(i);
+                // 将带序号的行写入文件
+                writer.write(lineWithNumber);
+                // 添加换行符
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.out.println("文件写错误: " + filename + e);
+            System.err.println("文件写错误: " + filename + ": " + e.getMessage());
         }
     }
 
