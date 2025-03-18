@@ -56,7 +56,7 @@ public class QuestionGenerator {
      * @author zyh
      * @date 2025/03/16
      */
-    private static String generateRandomExpression(int range, Random rand) {
+    public static String generateRandomExpression(int range, Random rand) {
         int numOperators = rand.nextInt(2) + 1; // 生成 1-3 个运算符
         List<String> elements = new ArrayList<>(); // 存储表达式的元素
 
@@ -225,7 +225,7 @@ public class QuestionGenerator {
      * @author zyh
      * @date 2025/03/16
      */
-    private static String generateOperand(int range, Random rand) {
+    public static String generateOperand(int range, Random rand) {
         if (rand.nextBoolean()) {
             // 生成真分数
             int denominator = rand.nextInt(9) + 2; // 生成 2-10 之间的分母
@@ -244,7 +244,7 @@ public class QuestionGenerator {
      * @author zyh
      * @date 2025/03/16
      */
-    private static boolean isSmaller(String num1, String num2) {
+    public static boolean isSmaller(String num1, String num2) {
         if (num1 == null || num1.trim().isEmpty() || num2 == null || num2.trim().isEmpty()) {
             throw new IllegalArgumentException("输入的数字不能为空");
         }
@@ -262,7 +262,7 @@ public class QuestionGenerator {
      * @author zyh
      * @date 2025/03/16
      */
-    private static String normalizeExpression(String expression) {
+    public static String normalizeExpression(String expression) {
         // 将表达式按空格拆分为操作数和运算符的令牌列表
         List<String> tokens = Arrays.asList(expression.split(" "));
         // 创建可修改的副本用于排序操作（原列表不可变）

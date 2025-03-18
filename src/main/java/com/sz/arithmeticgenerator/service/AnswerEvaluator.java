@@ -108,11 +108,10 @@ public class AnswerEvaluator {
             }
 
             // 构建输出字符串
-            String result = "Correct: " + correctIndices.size() + " " + correctIndices + "\n" +
-                    "Wrong: " + wrongIndices.size() + " " + wrongIndices;
 
             // 将结果写入 Grade.txt 文件 (此处省略了写入文件的操作，避免重复)
-            return result;
+            return "Correct: " + correctIndices.size() + " " + correctIndices + "\n" +
+                    "Wrong: " + wrongIndices.size() + " " + wrongIndices;
 
 
         } catch (IOException e) {
@@ -309,24 +308,14 @@ public class AnswerEvaluator {
     // 使用反射调用 Fraction 类中对应的方法
     private static Object invokeMethod(Object obj1, Object obj2, String operator) {
         try {
-            String methodName;
+            String methodName = switch (operator) {
+                case "+" -> "add";
+                case "-" -> "subtract";
+                case "*" -> "multiply";
+                case "/" -> "divide";
+                default -> throw new IllegalArgumentException("Invalid operator: " + operator);
+            };
             // 根据运算符确定要调用的方法名
-            switch (operator) {
-                case "+":
-                    methodName = "add";
-                    break;
-                case "-":
-                    methodName = "subtract";
-                    break;
-                case "*":
-                    methodName = "multiply";
-                    break;
-                case "/":
-                    methodName = "divide";
-                    break;
-                default:
-                    throw new IllegalArgumentException("Invalid operator: " + operator);
-            }
 
             // 获取 Fraction 类的方法
             Method method = Fraction.class.getMethod(methodName, Object.class);
