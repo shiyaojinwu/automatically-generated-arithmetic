@@ -123,6 +123,10 @@ class ArithmeticGeneratorApplicationTests {
         assertEquals("1'1/2", new Fraction("3/2").toMixedNumberString());
         assertNotEquals("1'1/2", new Fraction("4/2").toMixedNumberString());
     }
-
+    @Test
+    public void test() {
+       boolean a= isSmaller("1/7", "1/2");
+       System.out.println(a);
+    }
 
 }

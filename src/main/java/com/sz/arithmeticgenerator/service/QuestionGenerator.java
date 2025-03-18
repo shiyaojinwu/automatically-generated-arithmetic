@@ -265,7 +265,7 @@ public class QuestionGenerator {
         int[] fraction1 = parseFraction(num1);
         int[] fraction2 = parseFraction(num2);
         // 比较大小
-        return fraction1[0] / fraction1[1] < fraction2[0] / fraction2[1];
+        return  (double) fraction1[0] / fraction1[1] < (double) fraction2[0] / fraction2[1];
     }
 
     /**
