@@ -1,5 +1,7 @@
 package com.sz.arithmeticgenerator;
 
+import com.sz.arithmeticgenerator.service.AnswerEvaluator;
+import com.sz.arithmeticgenerator.service.Fraction;
 import com.sz.arithmeticgenerator.service.QuestionGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -75,4 +77,52 @@ class ArithmeticGeneratorApplicationTests {
         String expression = QuestionGenerator.generateRandomExpression(10, rand);
         assertFalse(expression.contains("-") && isSmaller(expression.split(" ")[0], expression.split(" ")[2]));
     }
+
+    /**
+     * AnswerEvaluator测试计算答案
+     */
+    @Test
+    public void testAnswerEvaluator() {
+        List<String> questions = QuestionGenerator.generateQuestions(5, 10);
+        List<String> answers = AnswerEvaluator.evaluateQuestions(questions);
+        assertEquals(5, answers.size());
+    }
+
+    /**
+     * 测试AnswerEvaluator评分
+     */
+    @Test
+    public void testAnswerEvaluatorGrade() {
+        String result = AnswerEvaluator.gradeAnswers("Exercises.txt", "Answers.txt");
+        assertNotNull(result);
+    }
+
+    /**
+     * 测试Fraction类
+     */
+    @Test
+    public void testFraction() {
+        assertEquals(new Fraction(1, 2), new Fraction("1/2"));
+        assertNotEquals(new Fraction(1, 2), new Fraction("1"));
+    }
+
+    /**
+     * 测试Fraction类的计算
+     */
+    @Test
+    public void testFractionCalculation() {
+        assertEquals(new Fraction(1, 2), new Fraction("1/4").add(new Fraction("1/4")));
+        assertEquals(new Fraction(1, 2), new Fraction("1/2").subtract(new Fraction("0/2")));
+    }
+
+    /**
+     * 测试Fraction类的转化真分数
+     */
+    @Test
+    public void testFractionToProper() {
+        assertEquals("1'1/2", new Fraction("3/2").toMixedNumberString());
+        assertNotEquals("1'1/2", new Fraction("4/2").toMixedNumberString());
+    }
+
+
 }

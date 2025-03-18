@@ -3,7 +3,7 @@ package com.sz.arithmeticgenerator.service;
 import java.util.Objects;
 
 //Fraction 类
-class Fraction implements Comparable<Fraction> {
+public class Fraction implements Comparable<Fraction> {
     // 分子
     private int numerator;
     // 分母
