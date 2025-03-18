@@ -3,6 +3,7 @@ package com.sz.arithmeticgenerator.service;
 import java.util.Objects;
 
 //Fraction 类
+@SuppressWarnings("unused")
 public class Fraction implements Comparable<Fraction> {
     // 分子
     private int numerator;
@@ -46,8 +47,7 @@ public class Fraction implements Comparable<Fraction> {
 
     // 加法
     public Fraction add(Object other) {
-        if (other instanceof Fraction) {
-            Fraction otherFrac = (Fraction) other;
+        if (other instanceof Fraction otherFrac) {
             int newNumerator = this.numerator * otherFrac.denominator + otherFrac.numerator * this.denominator;
             int newDenominator = this.denominator * otherFrac.denominator;
             return new Fraction(newNumerator, newDenominator);
@@ -61,8 +61,7 @@ public class Fraction implements Comparable<Fraction> {
 
     // 减法
     public Fraction subtract(Object other) {
-        if (other instanceof Fraction) {
-            Fraction otherFrac = (Fraction) other;
+        if (other instanceof Fraction otherFrac) {
             int newNumerator = this.numerator * otherFrac.denominator - otherFrac.numerator * this.denominator;
             int newDenominator = this.denominator * otherFrac.denominator;
             return new Fraction(newNumerator, newDenominator);
@@ -75,8 +74,7 @@ public class Fraction implements Comparable<Fraction> {
 
     // 乘法
     public Fraction multiply(Object other) {
-        if (other instanceof Fraction) {
-            Fraction otherFrac = (Fraction) other;
+        if (other instanceof Fraction otherFrac) {
             int newNumerator = this.numerator * otherFrac.numerator;
             int newDenominator = this.denominator * otherFrac.denominator;
             return new Fraction(newNumerator, newDenominator);
@@ -88,8 +86,7 @@ public class Fraction implements Comparable<Fraction> {
     }
     // 除法
     public Fraction divide(Object other) {
-        if (other instanceof Fraction) {
-            Fraction otherFrac = (Fraction) other;
+        if (other instanceof Fraction otherFrac) {
             if (otherFrac.numerator == 0) {
                 throw new ArithmeticException("Division by zero.");
             }

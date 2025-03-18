@@ -115,7 +115,7 @@ public class AnswerEvaluator {
 
 
         } catch (IOException e) {
-            return "Error reading files: " + e.getMessage();
+            throw new RuntimeException("Error reading files: " + e.getMessage());
         }
     }
 

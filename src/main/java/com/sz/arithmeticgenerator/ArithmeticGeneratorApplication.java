@@ -61,7 +61,7 @@ public class ArithmeticGeneratorApplication {
                 formatter.printHelp("数学生成器", options);
             }
         } catch (Exception ex) {
-            System.err.println("处理命令行参数时出错: " + ex);
+            System.err.println("处理命令行参数时出错: " + ex.getMessage());
         }
     }
 }

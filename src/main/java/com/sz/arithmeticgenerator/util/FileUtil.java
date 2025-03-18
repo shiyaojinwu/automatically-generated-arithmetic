@@ -32,7 +32,7 @@ public class FileUtil {
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.err.println("文件写错误: " + filename + ": " + e.getMessage());
+            throw new RuntimeException("文件写错误: " + filename + ": " + e.getMessage());
         }
     }
 
@@ -48,7 +48,7 @@ public class FileUtil {
             // 将整个内容写入文件
             writer.write(content);
         } catch (IOException e) {
-            System.out.println("文件写错误: " + filename + e);
+            throw new RuntimeException("文件写错误: " + filename + ": " + e.getMessage());
         }
     }
 }

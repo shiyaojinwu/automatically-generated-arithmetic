@@ -69,9 +69,8 @@ public class QuestionGenerator {
             // 生成下一个操作数
             String operand = generateOperand(range, rand);
 
-            // 确保减法不会产生负数
-            if (operator.equals("-")) {
-                if (elements.size() == 1) { // 只有一个操作数
+            if (elements.size() == 1) { // 只有一个操作数
+                if (operator.equals("-")) {
                     if (isSmaller(elements.getFirst(), operand)) {
                         elements.addFirst(operator);
                         elements.addFirst(operand);
@@ -79,19 +78,7 @@ public class QuestionGenerator {
                         elements.add(operator); // 添加运算符
                         elements.add(operand); // 添加操作数
                     }
-                } else if (elements.size() == 3) { // 已有两个操作数和一个运算符
-                    //计算中间值
-                    String result = computeIntermediateResult(elements.get(0), elements.get(1), elements.get(2));
-                    if (isSmaller(result, operand)) {
-                        elements.addFirst(operator);
-                        elements.addFirst(operand);
-                    } else {
-                        elements.add(operator); // 添加运算符
-                        elements.add(operand); // 添加操作数
-                    }
-                }
-            } else if (operator.equals("÷")) {// 确保除法不会生成不合理的分数
-                if (elements.size() == 1) { // 只有一个操作数
+                } else if (operator.equals("÷")) {// 确保除法不会生成不合理的分数
                     if (isSmaller(elements.getFirst(), operand)) {
                         elements.add(operator); // 添加运算符
                         elements.add(operand); // 添加操作数
@@ -99,21 +86,47 @@ public class QuestionGenerator {
                         elements.addFirst(operator);
                         elements.addFirst(operand);
                     }
-                } else if (elements.size() == 3) { // 已有两个操作数和一个运算符
+                } else {
+                    elements.add(operator); // 添加运算符
+                    elements.add(operand); // 添加操作数
+                }
+            } else if (elements.size() == 3) {
+                if (operator.equals("-")) {
                     //计算中间值
                     String result = computeIntermediateResult(elements.get(0), elements.get(1), elements.get(2));
                     if (isSmaller(result, operand)) {
+                        operand = "0";
                         elements.add(operator); // 添加运算符
                         elements.add(operand); // 添加操作数
                     } else {
-                        elements.addFirst(operator);
-                        elements.addFirst(operand);
+                        elements.add(operator); // 添加运算符
+                        elements.add(operand); // 添加操作数
                     }
+                } else if (operator.equals("*") && Objects.equals(elements.get(1), "-")) {
+                    //计算中间值
+                    String result = computeIntermediateResult(elements.get(2), operator, operand);
+                    if (isSmaller(result, elements.get(0))) {
+                        elements.add(operator); // 添加运算符
+                        elements.add(operand); // 添加操作数
+                    } else {
+                        elements.addFirst(operator); // 添加运算符
+                        elements.addFirst(operand); // 添加操作数
+                    }
+                } else if (operator.equals("÷") && Objects.equals(elements.get(1), "-")) {
+                    //计算中间值
+                    String result = computeIntermediateResult(elements.get(2), operator, operand);
+                    if (isSmaller(result, elements.get(0))) {
+                        elements.add(operator); // 添加运算符
+                        elements.add(operand); // 添加操作数
+                    } else {
+                        elements.addFirst("+"); // 添加运算符
+                        elements.addFirst(operand); // 添加操作数
+                    }
+                } else {
+                    elements.add(operator); // 添加运算符
+                    elements.add(operand); // 添加操作数
                 }
-            } else {
-                elements.add(operator); // 添加运算符
-                elements.add(operand); // 添加操作数
-            }
+            } else throw new RuntimeException();
         }
 
         return String.join(" ", elements); // 以空格拼接表达式
@@ -229,7 +242,7 @@ public class QuestionGenerator {
         if (rand.nextBoolean()) {
             // 生成真分数
             int denominator = rand.nextInt(9) + 2; // 生成 2-10 之间的分母
-            int numerator = rand.nextInt(denominator-1)+1; // 确保是真分数 (分子 < 分母)
+            int numerator = rand.nextInt(denominator - 1) + 1; // 确保是真分数 (分子 < 分母)
             return numerator + "/" + denominator;
         } else {
             return String.valueOf(rand.nextInt(range) + 1); // 生成 1-range 之间的整数
